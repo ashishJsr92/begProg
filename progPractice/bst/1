@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+
+
+typedef struct node
+{
+    int info;
+    struct node* left;
+    struct node* right;
+}Tree;
+
+Tree* inorderToBst(int values[], int limit);
+void  preorder(Tree*);
+
+int main()
+{
+    int values[] = {10, 5, 1, 7, 40, 50};
+
+    Tree* root = inorderToBst(values,5);
+    preorder(root);
+
+    return 0;
+}
+
+void preorder(Tree* root)
+{
+    if(root == NULL)
+        return;
+
+    cout << root->info << " ";
+    preorder(root->left);
+    preorder(root->right);
+}

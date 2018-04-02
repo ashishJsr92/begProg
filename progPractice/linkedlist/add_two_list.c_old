@@ -1,0 +1,136 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<llist.h>
+
+Node* createList(int size);
+void  printList(Node* ptr);
+Node* addList(Node*, Node*);
+Node* addNode(Node*, Node);
+
+int main()
+{
+    int n1 = 0, n2 = 0;
+    Node* num1 = NULL, *num2 = NULL;
+
+    printf("Enter number of digits in 1st number : ");
+    scanf("%d",&n1);
+
+    printf("Enter number of digits in 2nd number : ");
+    scanf("%d",&n2);
+
+    num1 = createList(n1);
+    num2 = createList(n2);
+
+    printf("1st Number : ");
+    printList(num1);
+
+    printf("\n2nd Number : ");
+    printList(num2);
+
+    printf("\nSummation : ");
+    printList(addList(num1,num2));
+    printf("\n");
+
+    return 0;
+}
+
+Node* createList(int size)
+{
+    Node* head = NULL, *ptr = NULL, * temp = NULL;
+    int i = 1;
+
+    while(i <= size){
+        temp = (Node*)malloc(sizeof(Node));
+        temp->info = (rand() % 10);
+        temp->next = NULL;
+
+        if(head == NULL){
+            head = ptr = temp;
+        }
+        else{
+            ptr->next = temp;
+            ptr = temp;
+        }
+        i++;
+    }
+
+    return head;
+}
+
+void printList(Node* head)
+{
+    while(head != NULL){
+        printf("%d",head->info);
+        head = head->next;
+    }
+    printf("\n");
+}
+
+int findSize(Node* num){
+    int size = 0;
+    while(num != NULL){
+        size++;
+        num = num->next;
+    }
+    return size;
+}
+
+Node* addList(Node* num1 , Node* num2)
+{
+    if(num1 == NULL)
+        return num2;
+    if(num2 == NULL)
+        return num1;
+
+    Node* head1 = num1;
+    Node* head2 = num2;
+    Node* result = NULL:
+    int size1 = findSize(num1);
+    int size2 = findSize(num2);
+
+    if(size1 > size2){
+        int i = 1;
+        while( i< (size1 - size2)){
+            head1 = head1->next;
+        }
+         
+    }
+
+}
+
+Node* add(Node* head1, Node* head2)
+{
+    if((head1 == NULL) && (head2 == NULL)){
+        return NULL;
+    }
+    Node* result = NULL, * temp = NULL;
+    int carry = 0;
+
+    if( (head1->next) && (head2->next)){
+        temp = add(head1->next, head2->next);
+        carry = (temp->info) / 10;
+        temp->info = temp->info % 10;
+    }
+    
+    result =  addNode(head1, head2, carry);
+    result->next  = temp;
+    return result;    
+}
+
+Node* addNode(Node* num1, Node* num2, int carry)
+{
+    int val = 0;
+    if(num1){
+        val += num1->info;
+    }
+    if(num2){
+        val += num2->info;
+    }
+
+    val += carry;
+    Node * result = (Node*)malloc(sizeof(Node));
+
+    result->info = val;
+    result->next = NULL;
+    return NULL;
+}
