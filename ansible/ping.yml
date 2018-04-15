@@ -1,0 +1,20 @@
+---
+- name: "Check whether host is reachable"
+  hosts: local
+  gather_facts: false
+  remote_user: oracle
+  tasks:
+    - name: "Ping the host"
+      ping:
+
+- name: "Check Python version"
+  hosts: local
+  gather_facts: false
+  remote_user: oracle
+  tasks:
+    - name: "Get Python version"
+      command: "python --version"
+      register: version_output
+    - debug: var=version_output.stderr_lines
+    - debug: var=version_output.stdout_lines
+
